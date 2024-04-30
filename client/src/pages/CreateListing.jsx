@@ -253,7 +253,7 @@ export default function CreateListing() {
                 onChange={handleChange}
                 value={formData.plots}
               />
-              <p>plots</p>
+              <p>plot #</p>
             </div>
             <div className='flex items-center gap-2'>
               <input
