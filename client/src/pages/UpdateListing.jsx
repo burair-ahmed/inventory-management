@@ -263,7 +263,7 @@ export default function CreateListing() {
                 type='number'
                 id='plot'
                 min='1'
-                max='10'
+                max='1000000'
                 required
                 className='p-3 border border-gray-300 rounded-lg'
                 onChange={handleChange}
@@ -276,7 +276,7 @@ export default function CreateListing() {
                 type='number'
                 id='size'
                 min='1'
-                max='10'
+                max='1000'
                 required
                 className='p-3 border border-gray-300 rounded-lg'
                 onChange={handleChange}
