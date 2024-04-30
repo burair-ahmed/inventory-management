@@ -20,8 +20,8 @@ export default function CreateListing() {
     description: '',
     address: '',
     type: 'rent',
-    bedrooms: 1,
-    bathrooms: 1,
+    plot: 1,
+    size: 1,
     regularPrice: 50,
     discountPrice: 0,
     offer: false,
@@ -261,28 +261,28 @@ export default function CreateListing() {
             <div className='flex items-center gap-2'>
               <input
                 type='number'
-                id='bedrooms'
+                id='plot'
                 min='1'
                 max='10'
                 required
                 className='p-3 border border-gray-300 rounded-lg'
                 onChange={handleChange}
-                value={formData.bedrooms}
+                value={formData.plot}
               />
-              <p>Beds</p>
+              <p>plot</p>
             </div>
             <div className='flex items-center gap-2'>
               <input
                 type='number'
-                id='bathrooms'
+                id='size'
                 min='1'
                 max='10'
                 required
                 className='p-3 border border-gray-300 rounded-lg'
                 onChange={handleChange}
-                value={formData.bathrooms}
+                value={formData.size}
               />
-              <p>Baths</p>
+              <p>size</p>
             </div>
             <div className='flex items-center gap-2'>
               <input

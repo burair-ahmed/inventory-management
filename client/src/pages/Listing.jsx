@@ -6,10 +6,9 @@ import { useSelector } from 'react-redux';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css/bundle';
 import {
-  FaBath,
-  FaBed,
+  FaBuilding,
+  FaHome,
   FaChair,
-  FaMapMarkedAlt,
   FaMapMarkerAlt,
   FaParking,
   FaShare,
@@ -116,16 +115,16 @@ export default function Listing() {
             </p>
             <ul className='text-green-900 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6'>
               <li className='flex items-center gap-1 whitespace-nowrap '>
-                <FaBed className='text-lg' />
-                {listing.bedrooms > 1
-                  ? `${listing.bedrooms} beds `
-                  : `${listing.bedrooms} bed `}
+                <FaHome className='text-lg' />
+                {listing.plot > 1
+                  ? `${listing.plot} plot `
+                  : `${listing.plot} plot `}
               </li>
               <li className='flex items-center gap-1 whitespace-nowrap '>
-                <FaBath className='text-lg' />
-                {listing.bathrooms > 1
-                  ? `${listing.bathrooms} baths `
-                  : `${listing.bathrooms} bath `}
+                <FaBuilding className='text-lg' />
+                {listing.size > 1
+                  ? `${listing.size} size `
+                  : `${listing.size} size `}
               </li>
               <li className='flex items-center gap-1 whitespace-nowrap '>
                 <FaParking className='text-lg' />
