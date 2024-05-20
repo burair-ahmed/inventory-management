@@ -81,7 +81,7 @@ export default function Search() {
 
     if (
       e.target.id === "parking" ||
-      e.target.id === "Available" ||
+      e.target.id === "status" ||
       e.target.id === "offer"
     ) {
       setSidebardata({
@@ -201,7 +201,7 @@ export default function Search() {
             <div className="flex gap-2">
               <input
                 type="checkbox"
-                id="status"
+                id="status" // Corrected id to "status"
                 className="w-5"
                 onChange={handleChange}
                 checked={sidebardata.status}

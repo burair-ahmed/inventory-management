@@ -43,13 +43,13 @@ export default function CreateListing() {
 
   const handleChange = (e) => {
     const { id, type, checked, value } = e.target;
-
+  
     if (id === "sale" || id === "rent") {
       setFormData({
         ...formData,
         type: id,
       });
-    } else if (id === "parking" || id === "Available" || id === "offer") {
+    } else if (id === "parking" || id === "status" || id === "offer") {
       setFormData({
         ...formData,
         [id]: checked,
@@ -61,6 +61,7 @@ export default function CreateListing() {
       });
     }
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -160,15 +161,15 @@ export default function CreateListing() {
               <span>Parking spot</span>
             </div>
             <div className="flex gap-2">
-              <input
-                type="checkbox"
-                id="Available"
-                className="w-5"
-                onChange={handleChange}
-                checked={formData.status}
-              />
-              <span>Available</span>
-            </div>
+            <input
+              type="checkbox"
+              id="status" 
+              className="w-5"
+              onChange={handleChange}
+              checked={formData.status}
+            />
+            <span>Available</span>
+          </div>
             <div className="flex gap-2">
               <input
                 type="checkbox"
