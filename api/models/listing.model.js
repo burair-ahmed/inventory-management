@@ -30,7 +30,7 @@ const listingSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    furnished: {
+    status: {
       type: Boolean,
       required: true,
     },
@@ -44,10 +44,6 @@ const listingSchema = new mongoose.Schema(
     },
     offer: {
       type: Boolean,
-      required: true,
-    },
-    imageUrls: {
-      type: Array,
       required: true,
     },
     userRef: {
