@@ -77,3 +77,11 @@ export const getUser = async (req, res, next) => {
     next(error);
   }
 };
+
+export const checkRole = (req, res, next) => {
+  try {
+    res.status(200).json({ role: req.user.role });
+  } catch (error) {
+    next(error);
+  }
+};
