@@ -9,7 +9,8 @@ export const verifyToken = (req, res, next) => {
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) return next(errorHandler(403, 'Forbidden'));
 
-    req.user = user;
+    console.log('Decoded JWT User:', user); // Debugging
+    req.user = user; // This will have id and role
     next();
   });
 };

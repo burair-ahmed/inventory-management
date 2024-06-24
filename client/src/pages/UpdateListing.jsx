@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
-export default function CreateListing() {
-  const { currentUser } = useSelector((state) => state.user);
+export default function UpdateListing() {
   const navigate = useNavigate();
   const params = useParams();
   const [formData, setFormData] = useState({
@@ -43,7 +42,7 @@ export default function CreateListing() {
 
   const handleChange = (e) => {
     const { id, type, checked, value } = e.target;
-  
+
     if (id === "sale" || id === "rent") {
       setFormData({
         ...formData,
@@ -61,7 +60,6 @@ export default function CreateListing() {
       });
     }
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -77,10 +75,7 @@ export default function CreateListing() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          ...formData,
-          userRef: currentUser._id,
-        }),
+        body: JSON.stringify(formData),
       });
       const data = await res.json();
       setLoading(false);
@@ -161,15 +156,15 @@ export default function CreateListing() {
               <span>Parking spot</span>
             </div>
             <div className="flex gap-2">
-            <input
-              type="checkbox"
-              id="status" 
-              className="w-5"
-              onChange={handleChange}
-              checked={formData.status}
-            />
-            <span>Available</span>
-          </div>
+              <input
+                type="checkbox"
+                id="status"
+                className="w-5"
+                onChange={handleChange}
+                checked={formData.status}
+              />
+              <span>Available</span>
+            </div>
             <div className="flex gap-2">
               <input
                 type="checkbox"
@@ -193,7 +188,7 @@ export default function CreateListing() {
                 onChange={handleChange}
                 value={formData.plot}
               />
-              <p>plot</p>
+              <p>Plot</p>
             </div>
             <div className="flex items-center gap-2">
               <input
@@ -206,7 +201,7 @@ export default function CreateListing() {
                 onChange={handleChange}
                 value={formData.size}
               />
-              <p>size</p>
+              <p>Size</p>
             </div>
             <div className="flex items-center gap-2">
               <input

@@ -4,12 +4,16 @@ import { errorHandler } from '../utils/error.js';
 import jwt from 'jsonwebtoken';
 
 export const signup = async (req, res, next) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, role } = req.body; // Assuming role is passed in the body
   const hashedPassword = bcryptjs.hashSync(password, 10);
-  const newUser = new User({ username, email, password: hashedPassword });
+  const newUser = new User({ username, email, password: hashedPassword, role }); // Ensure role is included
   try {
     await newUser.save();
-    res.status(201).json('User created successfully!');
+    const token = jwt.sign({ id: newUser._id, role: newUser.role }, process.env.JWT_SECRET);
+    res
+      .cookie('access_token', token, { httpOnly: true })
+      .status(201)
+      .json('User created successfully!');
   } catch (error) {
     next(error);
   }
@@ -17,22 +21,20 @@ export const signup = async (req, res, next) => {
 
 export const signin = async (req, res, next) => {
   const { email, password } = req.body;
-  
+
   try {
-    // Example logic to find user and verify password
     const validUser = await User.findOne({ email });
-    
+
     if (!validUser) {
       return next(errorHandler(401, 'Wrong credentials!'));
     }
-    
+
     const validPassword = bcryptjs.compareSync(password, validUser.password);
-    
+
     if (!validPassword) {
       return next(errorHandler(401, 'Wrong credentials!'));
     }
 
-    // If authentication is successful, generate token and set cookie
     const token = jwt.sign({ id: validUser._id, role: validUser.role }, process.env.JWT_SECRET);
     const { password: pass, ...rest } = validUser._doc;
 
@@ -49,7 +51,7 @@ export const google = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+      const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET);
       const { password: pass, ...rest } = user._doc;
       res
         .cookie('access_token', token, { httpOnly: true })
@@ -67,9 +69,10 @@ export const google = async (req, res, next) => {
         email: req.body.email,
         password: hashedPassword,
         avatar: req.body.photo,
+        role: 'user', // Assign a default role, adjust as needed
       });
       await newUser.save();
-      const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
+      const token = jwt.sign({ id: newUser._id, role: newUser.role }, process.env.JWT_SECRET);
       const { password: pass, ...rest } = newUser._doc;
       res
         .cookie('access_token', token, { httpOnly: true })
