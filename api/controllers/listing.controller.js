@@ -120,3 +120,18 @@ export const getAllListingsForSuperAdmin = async (req, res, next) => {
     next(error);
   }
 };
+
+// New function to check if a plot number already exists
+export const checkPlotNumber = async (req, res, next) => {
+  try {
+    const plotNumber = req.params.plot;
+    const existingListing = await Listing.findOne({ plot: plotNumber });
+    if (existingListing) {
+      return res.status(200).json({ exists: true });
+    } else {
+      return res.status(200).json({ exists: false });
+    }
+  } catch (error) {
+    next(error);
+  }
+};

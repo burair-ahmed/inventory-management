@@ -58,7 +58,12 @@ export default function CreateListing() {
       setError(false);
 
       // Check if plot number already exists
-      const res = await fetch(`/api/listing/check/${formData.plot}`);
+      const res = await fetch(`/api/listing/check/${formData.plot}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       const data = await res.json();
       if (data.exists) {
         setLoading(false);
