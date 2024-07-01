@@ -1,13 +1,17 @@
-// listing.controller.js
-
 import Listing from "../models/listing.model.js";
 import { errorHandler } from "../utils/error.js";
 
 export const createListing = async (req, res, next) => {
   try {
+    // Check if a listing with the same plot number already exists
+    const existingListing = await Listing.findOne({ plot: req.body.plot });
+    if (existingListing) {
+      return next(errorHandler(400, "This plot number is already listed."));
+    }
+
     const listing = new Listing({
       ...req.body,
-      userRef: req.user.id, // Reference to the user creating the listing
+      userRef: req.user.id,
     });
     await listing.save();
     return res.status(201).json(listing);
@@ -25,35 +29,27 @@ export const deleteListing = async (req, res, next) => {
       return next(errorHandler(404, "Listing not found!"));
     }
 
-    // Ensure only the user who created the listing or a super admin can delete it
-    if (req.user.role !== "superadmin" && req.user.id !== listing.userRef) {
+    if (req.user.role !== "superadmin" && req.user.id !== listing.userRef.toString()) {
       return next(errorHandler(401, "You can only delete your own listings!"));
     }
 
     await Listing.findByIdAndDelete(listingId);
-    res
-      .status(200)
-      .json({ success: true, message: "Listing has been deleted!" });
+    res.status(200).json({ success: true, message: "Listing has been deleted!" });
   } catch (error) {
     next(error);
   }
 };
 
 export const updateListing = async (req, res, next) => {
-  const listingId = req.params.id;
-
   try {
-    const listing = await Listing.findById(listingId);
-    if (!listing) {
-      return next(errorHandler(404, "Listing not found!"));
+    const listing = await Listing.findById(req.params.id);
+    if (!listing) return next(errorHandler(404, 'Listing not found!'));
+
+    if (req.user.role !== 'superadmin' && req.user.id !== listing.userRef.toString()) {
+      return next(errorHandler(401, 'You can only update your own listings!'));
     }
 
-    // Super admin can update any listing
-    const updatedListing = await Listing.findByIdAndUpdate(
-      listingId,
-      req.body,
-      { new: true }
-    );
+    const updatedListing = await Listing.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
     return res.status(200).json(updatedListing);
   } catch (error) {
@@ -63,7 +59,7 @@ export const updateListing = async (req, res, next) => {
 
 export const getListing = async (req, res, next) => {
   try {
-    const listing = await Listing.findById(req.params.id);
+    const listing = await Listing.findById(req.params.id).populate('userRef', 'username');
     if (!listing) {
       return next(errorHandler(404, "Listing not found!"));
     }
@@ -103,7 +99,6 @@ export const getListings = async (req, res, next) => {
       parking,
       type,
     };
-    // Only add the userRef filter if the user is an admin
     if (req.user.role === "admin") {
       filter.userRef = req.user.id;
     }
@@ -119,7 +114,7 @@ export const getListings = async (req, res, next) => {
 
 export const getAllListingsForSuperAdmin = async (req, res, next) => {
   try {
-    const listings = await Listing.find();
+    const listings = await Listing.find().populate('userRef', 'username');
     res.status(200).json(listings);
   } catch (error) {
     next(error);

@@ -8,8 +8,8 @@ const router = express.Router();
 router.post('/create', verifyToken, verifyAdminOrSuperAdmin, createListing);
 router.delete('/delete/:id', verifyToken, verifyAdminOrSuperAdmin, deleteListing);
 router.post('/update/:id', verifyToken, verifyAdminOrSuperAdmin, updateListing);
-router.get('/get/:id', verifyToken, getListing);
+router.get('/get/:id', verifyToken, getListing);  // This route is updated to populate lister's name
 router.get('/get', verifyToken, getListings);
-router.get('/superadmin/get', verifyToken, verifySuperAdmin, getAllListingsForSuperAdmin);
+router.get('/superadmin/get', verifyToken, verifySuperAdmin, getAllListingsForSuperAdmin);  // This route is updated to populate lister's name
 
 export default router;

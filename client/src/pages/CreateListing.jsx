@@ -48,7 +48,6 @@ export default function CreateListing() {
       });
     }
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -57,7 +56,17 @@ export default function CreateListing() {
         return setError('Discount price must be lower than regular price');
       setLoading(true);
       setError(false);
-      const res = await fetch('/api/listing/create', {
+
+      // Check if plot number already exists
+      const res = await fetch(`/api/listing/check/${formData.plot}`);
+      const data = await res.json();
+      if (data.exists) {
+        setLoading(false);
+        setError('This plot number is already listed.');
+        return;
+      }
+
+      const createRes = await fetch('/api/listing/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -67,24 +76,27 @@ export default function CreateListing() {
           userRef: currentUser._id,
         }),
       });
-      const data = await res.json();
+      const responseData = await createRes.json();
       setLoading(false);
-      if (data.success === false) {
-        setError(data.message);
+
+      if (responseData.success === false) {
+        setError(responseData.message);
+      } else {
+        navigate(`/listing/${responseData._id}`);
       }
-      navigate(`/listing/${data._id}`);
     } catch (error) {
       setError(error.message);
       setLoading(false);
     }
   };
+
   return (
     <main className='p-3 max-w-4xl mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>
         Create a Listing
       </h1>
       <form onSubmit={handleSubmit} className='flex flex-col sm:flex-row gap-4'>
-      <div className='flex flex-col gap-4 flex-1'>
+        <div className='flex flex-col gap-4 flex-1'>
           <input
             type='text'
             placeholder='Name'
@@ -176,9 +188,9 @@ export default function CreateListing() {
                 required
                 className='p-3 border border-gray-300 rounded-lg'
                 onChange={handleChange}
-                value={formData.plots}
+                value={formData.plot}
               />
-              <p>plot #</p>
+              <p>Plot #</p>
             </div>
             <div className='flex items-center gap-2'>
               <input
@@ -191,7 +203,7 @@ export default function CreateListing() {
                 onChange={handleChange}
                 value={formData.size}
               />
-              <p>size</p>
+              <p>Size</p>
             </div>
             <div className='flex items-center gap-2'>
               <input
@@ -235,15 +247,15 @@ export default function CreateListing() {
           </div>
         </div>
         <div className='flex flex-col flex-1 gap-4'>
-        {error && <p className='text-red-700 text-sm'>{error}</p>}
-        <button
-          disabled={loading}
-          className='p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
-        >
-          {loading ? 'Creating...' : 'Create listing'}
-        </button>
-      </div>
-    </form>
-  </main>
-);
+          {error && <p className='text-red-700 text-sm'>{error}</p>}
+          <button
+            disabled={loading}
+            className='p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
+          >
+            {loading ? 'Creating...' : 'Create listing'}
+          </button>
+        </div>
+      </form>
+    </main>
+  );
 }

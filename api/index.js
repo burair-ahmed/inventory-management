@@ -5,6 +5,7 @@ import userRouter from './routes/user.route.js';
 import authRouter from './routes/auth.route.js';
 import listingRouter from './routes/listing.route.js';
 import superadminRouter from './routes/superadmin.route.js';
+import clientRouter from './routes/client.route.js';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 
@@ -34,6 +35,7 @@ app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/listing', listingRouter);
 app.use('/api/superadmin', superadminRouter);
+app.use('/api/client', clientRouter);
 
 app.use(express.static(path.join(__dirname, '/client/dist')));
 

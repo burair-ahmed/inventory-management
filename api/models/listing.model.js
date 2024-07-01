@@ -1,3 +1,5 @@
+// listing.model.js
+
 import mongoose from 'mongoose';
 
 const listingSchema = new mongoose.Schema(
@@ -25,6 +27,7 @@ const listingSchema = new mongoose.Schema(
     plot: {
       type: Number,
       required: true,
+      unique: true, // Ensure this field is unique
     },
     size: {
       type: Number,
@@ -47,8 +50,13 @@ const listingSchema = new mongoose.Schema(
       required: true,
     },
     userRef: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
       required: true,
+    },
+    clientRef: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Client',
     },
   },
   { timestamps: true }
