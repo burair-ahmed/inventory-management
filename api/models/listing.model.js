@@ -1,4 +1,4 @@
-// listing.model.js
+// models/listing.model.js
 
 import mongoose from 'mongoose';
 
@@ -27,7 +27,7 @@ const listingSchema = new mongoose.Schema(
     plot: {
       type: Number,
       required: true,
-      unique: true, // Ensure this field is unique
+      unique: true,
     },
     size: {
       type: Number,

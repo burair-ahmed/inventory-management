@@ -6,17 +6,30 @@ const clientSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    plot: {
+      type: Number,
+      required: true,
+    },
+    block: {
+      type: String,
+      required: true,
+    },
+    amountPaid: {
+      type: Number,
+      required: true,
+    },
+    amountDue: {
+      type: Number,
+      required: true,
+    },
+    userRef: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
     email: {
       type: String,
-      required: true,
-      unique: true,
-    },
-    phone: {
-      type: String,
-      required: true,
-    },
-    address: {
-      type: String,
+      required: false,
     },
   },
   { timestamps: true }

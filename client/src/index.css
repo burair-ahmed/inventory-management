@@ -5,3 +5,135 @@
 body{
     background-color: rgb(241, 245, 241);
 }
+.client-profile-form-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .client-profile-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+  }
+  
+  .client-profile-form .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .client-profile-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .client-profile-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  
+  .client-profile-form input:focus {
+    border-color: #0066cc;
+    outline: none;
+  }
+  
+  .btn-submit {
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-submit:hover {
+    background-color: #0056b3;
+  }
+  .client-profile-list-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .client-profile-list-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+  }
+  
+  .client-profile-list-container .create-link {
+    display: block;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .client-profile-list-container ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .client-profile-list-container li {
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .client-profile-list-container li p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .client-profile-list-container li .actions {
+    margin-top: 10px;
+  }
+  
+  .client-profile-list-container li .actions button {
+    margin-right: 10px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .client-profile-list-container li .actions .edit-btn {
+    background-color: #28a745;
+    color: #fff;
+  }
+  
+  .client-profile-list-container li .actions .edit-btn:hover {
+    background-color: #218838;
+  }
+  
+  .client-profile-list-container li .actions .delete-btn {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  
+  .client-profile-list-container li .actions .delete-btn:hover {
+    background-color: #c82333;
+  }
