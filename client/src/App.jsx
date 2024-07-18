@@ -12,6 +12,7 @@ import Listing from "./pages/Listing";
 import Search from "./pages/Search";
 import ClientProfileList from "./pages/ClientProfileList";
 import ClientProfileForm from "./components/ClientProfileForm";
+import NotificationsPage from "./pages/NotificationsPage"; // Import the NotificationsPage component
 
 export default function App() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
           <Route path="/clients" element={<ClientProfileList />} />
           <Route path="/clients/new" element={<ClientProfileForm />} />
           <Route path="/clients/edit/:id" element={<ClientProfileForm />} />
+          <Route path="/notifications" element={<NotificationsPage />} />
         </Route>
       </Routes>
     </Router>

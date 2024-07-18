@@ -1,31 +1,31 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ClientProfileForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: '',
-    plot: '',
-    block: '',
-    amountPaid: '',
-    amountDue: '',
+    name: "",
+    plot: "",
+    block: "",
+    amountPaid: "",
+    amountDue: "",
+    dueDate: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    if (id)
- {
+    if (id) {
       const fetchClient = async () => {
         try {
-          const token = localStorage.getItem('token');
+          const token = localStorage.getItem("token");
           const response = await axios.get(`/api/client/get/${id}`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           setFormData(response.data);
         } catch (error) {
-          console.error('Failed to fetch client', error);
+          console.error("Failed to fetch client", error);
         }
       };
 
@@ -43,34 +43,33 @@ const ClientProfileForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('token');
-      if (id)
- {
+      const token = localStorage.getItem("token");
+      if (id) {
         await axios.post(`/api/client/update/${id}`, formData, {
           headers: { Authorization: `Bearer ${token}` },
         });
       } else {
-        await axios.post('/api/client/create', formData, {
+        await axios.post("/api/client/create", formData, {
           headers: { Authorization: `Bearer ${token}` },
         });
       }
-      navigate('/clients');
+      navigate("/clients");
       setFormData({
-        name: '',
-        plot: '',
-        block: '',
-        amountPaid: '',
-        amountDue: '',
+        name: "",
+        plot: "",
+        block: "",
+        amountPaid: "",
+        amountDue: "",
       });
     } catch (error) {
       setError(error.response.data.message);
-      console.error('Failed to save client', error.response.data);
+      console.error("Failed to save client", error.response.data);
     }
   };
 
   return (
     <div className="client-profile-form-container">
-      <h2>{id ? 'Edit Client' : 'Create Client'}</h2>
+      <h2>{id ? "Edit Client" : "Create Client"}</h2>
       {error && <p className="error-message">{error}</p>}
       <form onSubmit={handleSubmit} className="client-profile-form">
         <div className="form-group">
@@ -128,8 +127,18 @@ const ClientProfileForm = () => {
             required
           />
         </div>
+        <div className="form-group">
+          <label>Due Date</label>
+          <input
+            type="date"
+            name="dueDate"
+            value={formData.dueDate}
+            onChange={handleChange}
+            required
+          />
+        </div>
         <button type="submit" className="btn-submit">
-          {id ? 'Update' : 'Create'}
+          {id ? "Update" : "Create"}
         </button>
       </form>
     </div>

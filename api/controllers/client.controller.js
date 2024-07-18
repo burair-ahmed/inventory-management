@@ -2,13 +2,14 @@ import Client from '../models/client.model.js';
 import { errorHandler } from '../utils/error.js';
 
 export const createClient = async (req, res, next) => {
-  const { name, plot, block, amountPaid, amountDue } = req.body;
+  const { name, plot, block, amountPaid, amountDue, dueDate } = req.body;
   const newClient = new Client({
     name,
     plot,
     block,
     amountPaid,
     amountDue,
+    dueDate,
     userRef: req.user.id,
   });
 

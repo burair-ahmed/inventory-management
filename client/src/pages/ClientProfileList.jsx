@@ -46,6 +46,7 @@ const ClientProfileList = () => {
             <p><strong>Block:</strong> {client.block}</p>
             <p><strong>Amount Paid:</strong> {client.amountPaid}</p>
             <p><strong>Amount Due:</strong> {client.amountDue}</p>
+            <p><strong>Due Date</strong> {client.dueDate}</p>
             <div className="actions">
               <button className="edit-btn" onClick={() => navigate(`/clients/edit/${client._id}`)}>Edit</button>
               <button className="delete-btn" onClick={() => handleDelete(client._id)}>Delete</button>

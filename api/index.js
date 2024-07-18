@@ -1,4 +1,5 @@
-// main server file (e.g., app.js or index.js)
+// server.js or app.js
+
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
@@ -7,8 +8,10 @@ import authRouter from './routes/auth.route.js';
 import listingRouter from './routes/listing.route.js';
 import superadminRouter from './routes/superadmin.route.js';
 import clientRouter from './routes/client.route.js';
+import notificationsRouter from './routes/notification.route.js';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import { sendDueDateNotifications } from './utils/notificationService.js'; // Corrected import
 
 dotenv.config();
 
@@ -16,6 +19,7 @@ mongoose
   .connect(process.env.MONGO)
   .then(() => {
     console.log('Connected to MongoDB!');
+    sendDueDateNotifications(); // Start the sendDueDateNotifications task
   })
   .catch((err) => {
     console.log(err);
@@ -37,6 +41,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/listing', listingRouter);
 app.use('/api/superadmin', superadminRouter);
 app.use('/api/client', clientRouter);
+app.use('/api/notifications', notificationsRouter);
 
 app.use(express.static(path.join(__dirname, '/client/dist')));
 
