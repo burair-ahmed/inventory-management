@@ -32,7 +32,7 @@ const NotificationsPage = () => {
                 </p>
               </div>
               <div className="notification-actions">
-                <Link to={`/clients`} className="notification-action-link">
+                <Link to={`/clients/edit/${notification._id}`} className="notification-action-link">
                   View Details
                 </Link>
               </div>
