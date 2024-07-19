@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const NotificationsPage = () => {
   const [notifications, setNotifications] = useState([]);
+  const navigate = useNavigate(); // Hook to programmatically navigate
 
   useEffect(() => {
     const fetchNotifications = async () => {
@@ -18,23 +19,32 @@ const NotificationsPage = () => {
     fetchNotifications();
   }, []);
 
+  const handleViewDetails = (clientId) => {
+    navigate(`/clients/edit/${clientId}`);
+  };
+
   return (
     <div className="notifications-container">
       <h1 className="notifications-title">Client Notifications</h1>
       {notifications.length > 0 ? (
         <ul className="notifications-list">
-          {notifications.map((notification) => (
+          {notifications.map((notification, index) => (
             <li key={notification._id} className="notification-item">
               <div className="notification-details">
-                <h3 className="notification-name">{notification.name}</h3>
+                <h3 className="notification-name">
+                  {index + 1}. {notification.name}
+                </h3>
                 <p className="notification-date">
                   Due on: {new Date(notification.dueDate).toLocaleDateString()}
                 </p>
               </div>
               <div className="notification-actions">
-                <Link to={`/clients/edit/${notification._id}`} className="notification-action-link">
+                <button 
+                  onClick={() => handleViewDetails(notification._id)} 
+                  className="notification-action-button"
+                >
                   View Details
-                </Link>
+                </button>
               </div>
             </li>
           ))}
