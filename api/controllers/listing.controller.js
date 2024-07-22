@@ -114,7 +114,7 @@ export const getListings = async (req, res, next) => {
 
 export const getAllListingsForSuperAdmin = async (req, res, next) => {
   try {
-    const listings = await Listing.find().populate('userRef', 'username');
+    const listings = await Listing.find().sort({ createdAt: -1 }).populate('userRef', 'username');
     res.status(200).json(listings);
   } catch (error) {
     next(error);

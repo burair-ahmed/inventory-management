@@ -58,7 +58,7 @@ export default function Home() {
           place with ease
         </h1>
         <div className='text-gray-400 text-xs sm:text-sm'>
-          Indus Enclave  is the best place to find your next perfect place to
+          Indus Enclave is the best place to find your next perfect place to
           live.
           <br />
           We have a wide range of properties for you to choose from.
@@ -77,19 +77,16 @@ export default function Home() {
           offerListings.length > 0 &&
           offerListings.map((listing) => (
             <SwiperSlide key={listing._id}>
-              <div
-                className='h-[500px] bg-gray-200'
-              ></div>
+              <div className='h-[500px] bg-gray-200'></div>
             </SwiperSlide>
           ))}
       </Swiper>
 
       {/* listing results for offer, sale and rent */}
-
       <div className='max-w-6xl mx-auto p-3 flex flex-col gap-8 my-10'>
         {offerListings && offerListings.length > 0 && (
           <div className=''>
-            <div className='my-3'>
+            <div className='my-3 flex justify-between'>
               <h2 className='text-2xl font-semibold text-slate-600'>Recent offers</h2>
               <Link className='text-sm text-blue-800 hover:underline' to={'/search?offer=true'}>Show more offers</Link>
             </div>
@@ -102,7 +99,7 @@ export default function Home() {
         )}
         {rentListings && rentListings.length > 0 && (
           <div className=''>
-            <div className='my-3'>
+            <div className='my-3 flex justify-between'>
               <h2 className='text-2xl font-semibold text-slate-600'>Recent places for rent</h2>
               <Link className='text-sm text-blue-800 hover:underline' to={'/search?type=rent'}>Show more places for rent</Link>
             </div>
@@ -115,7 +112,7 @@ export default function Home() {
         )}
         {saleListings && saleListings.length > 0 && (
           <div className=''>
-            <div className='my-3'>
+            <div className='my-3 flex justify-between'>
               <h2 className='text-2xl font-semibold text-slate-600'>Recent places for sale</h2>
               <Link className='text-sm text-blue-800 hover:underline' to={'/search?type=sale'}>Show more places for sale</Link>
             </div>
