@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const ClientProfileList = () => {
   const [clients, setClients] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,6 +23,18 @@ const ClientProfileList = () => {
     fetchClients();
   }, []);
 
+  const handleSearch = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`/api/client/search?name=${searchQuery}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setClients(response.data);
+    } catch (error) {
+      console.error('Failed to search clients', error);
+    }
+  };
+
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem('token');
@@ -37,6 +50,15 @@ const ClientProfileList = () => {
   return (
     <div className="client-profile-list-container">
       <h2>Client Profiles</h2>
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Search by name"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <button onClick={handleSearch}>Search</button>
+      </div>
       <Link to="/clients/new" className="create-link">Create New Client</Link>
       <ul>
         {clients.map((client) => (
@@ -46,7 +68,8 @@ const ClientProfileList = () => {
             <p><strong>Block:</strong> {client.block}</p>
             <p><strong>Amount Paid:</strong> {client.amountPaid}</p>
             <p><strong>Amount Due:</strong> {client.amountDue}</p>
-            <p><strong>Due Date</strong> {client.dueDate}</p>
+            <p><strong>Due Date:</strong> {new Date(client.dueDate).toLocaleDateString()}</p>
+            <p><strong>Created By:</strong> {client.createdByAdmin}</p>
             <div className="actions">
               <button className="edit-btn" onClick={() => navigate(`/clients/edit/${client._id}`)}>Edit</button>
               <button className="delete-btn" onClick={() => handleDelete(client._id)}>Delete</button>

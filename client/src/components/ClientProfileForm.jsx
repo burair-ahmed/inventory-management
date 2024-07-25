@@ -12,6 +12,7 @@ const ClientProfileForm = () => {
     amountPaid: "",
     amountDue: "",
     dueDate: "",
+    createdByAdmin: "", // Add this line
   });
   const [error, setError] = useState("");
 
@@ -60,6 +61,8 @@ const ClientProfileForm = () => {
         block: "",
         amountPaid: "",
         amountDue: "",
+        dueDate: "",
+        createdByAdmin: "", // Reset this field
       });
     } catch (error) {
       setError(error.response.data.message);
@@ -137,6 +140,17 @@ const ClientProfileForm = () => {
             required
           />
         </div>
+        {id && (
+          <div className="form-group">
+            <label>Created By Admin</label>
+            <input
+              type="text"
+              name="createdByAdmin"
+              value={formData.createdByAdmin}
+              readOnly
+            />
+          </div>
+        )}
         <button type="submit" className="btn-submit">
           {id ? "Update" : "Create"}
         </button>

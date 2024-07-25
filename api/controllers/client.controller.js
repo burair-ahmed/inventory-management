@@ -1,19 +1,26 @@
 import Client from '../models/client.model.js';
+import User from '../models/user.model.js'; // Import the User model
 import { errorHandler } from '../utils/error.js';
 
 export const createClient = async (req, res, next) => {
   const { name, plot, block, amountPaid, amountDue, dueDate } = req.body;
-  const newClient = new Client({
-    name,
-    plot,
-    block,
-    amountPaid,
-    amountDue,
-    dueDate,
-    userRef: req.user.id,
-  });
 
   try {
+    // Fetch the admin's name from the User model
+    const admin = await User.findById(req.user.id);
+    if (!admin) return next(errorHandler(404, 'Admin not found!'));
+
+    const newClient = new Client({
+      name,
+      plot,
+      block,
+      amountPaid,
+      amountDue,
+      dueDate,
+      userRef: req.user.id,
+      createdByAdmin: admin.username, // Save the admin's username
+    });
+
     await newClient.save();
     res.status(201).json('Client profile created successfully!');
   } catch (error) {
@@ -77,6 +84,20 @@ export const getClients = async (req, res, next) => {
 export const getAllClientsForSuperAdmin = async (req, res, next) => {
   try {
     const clients = await Client.find().populate('userRef', 'username');
+    res.status(200).json(clients);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const searchClientsByName = async (req, res, next) => {
+  const { name } = req.query;
+
+  try {
+    const clients = await Client.find({ 
+      name: { $regex: name, $options: 'i' }, // Case-insensitive search
+      userRef: req.user.id 
+    }).populate('userRef', 'username');
     res.status(200).json(clients);
   } catch (error) {
     next(error);

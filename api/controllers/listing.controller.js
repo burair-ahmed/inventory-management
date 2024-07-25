@@ -1,14 +1,9 @@
+// controllers/listing.controller.js
 import Listing from "../models/listing.model.js";
 import { errorHandler } from "../utils/error.js";
 
 export const createListing = async (req, res, next) => {
   try {
-    // Check if a listing with the same plot number already exists
-    const existingListing = await Listing.findOne({ plot: req.body.plot });
-    if (existingListing) {
-      return next(errorHandler(400, "This plot number is already listed."));
-    }
-
     const listing = new Listing({
       ...req.body,
       userRef: req.user.id,
