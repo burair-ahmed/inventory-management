@@ -9,7 +9,9 @@ import clientRouter from './routes/client.route.js';
 import notificationsRouter from './routes/notification.route.js';
 import cookieParser from 'cookie-parser';
 import path from 'path';
-import { sendDueDateNotifications } from './utils/notificationService.js'; // Corrected import
+import { fileURLToPath } from 'url'; // Add this line
+import { sendDueDateNotifications } from './utils/notificationService.js';
+import { ipLogger } from './utils/ipLogger.js';
 
 dotenv.config();
 
@@ -23,12 +25,14 @@ mongoose
     console.log(err);
   });
 
-const __dirname = path.resolve();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(ipLogger);
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000!');

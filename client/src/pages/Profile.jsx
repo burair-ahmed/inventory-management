@@ -228,12 +228,14 @@ export default function Profile() {
         />
         <button
           disabled={loading}
-          className="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80"
+          style={{ backgroundColor: "#af7a0e" }}
+          className="text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80"
         >
           {loading ? "Loading..." : "Update"}
         </button>
         <Link
-          className="bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-95"
+          style={{ backgroundColor: "#cd8e0e" }}
+          className="text-white p-3 rounded-lg uppercase text-center hover:opacity-95"
           to={"/create-listing"}
         >
           Create Listing
@@ -299,12 +301,6 @@ export default function Profile() {
             </div>
           ))}
         </div>
-      )}
-
-      {userListings && userListings.length === 0 && (
-        <p className="text-center mt-5 text-red-700">
-          You have no listings yet.
-        </p>
       )}
     </div>
   );
