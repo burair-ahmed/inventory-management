@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
+    "@splinetool/react-spline": "^4.0.0",
     "axios": "^1.7.2",
     "firebase": "^10.3.1",
     "moment": "^2.30.1",

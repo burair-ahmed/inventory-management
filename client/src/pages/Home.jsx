@@ -45,15 +45,15 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
+    <div className='animate-fadeIn'>
       {/* top */}
-      <div className='flex flex-col gap-6 p-20 px-3 max-w-6xl mx-auto'>
-        <h1 className='text-slate-950 font-bold text-3xl lg:text-6xl text-center'>
+      <div className='flex flex-col gap-6 p-6 sm:p-20 px-3 max-w-6xl mx-auto text-center'>
+        <h1 className='text-slate-950 font-bold text-3xl lg:text-6xl'>
           Find your next <span className='header-intro'>perfect</span>
           <br />
           place with ease
         </h1>
-        <div className='text-gray-500 text-xs sm:text-sm text-center'>
+        <div className='text-gray-500 text-xs sm:text-sm'>
           Indus Enclave is the best place to find your next perfect place to
           live.
           <br />
@@ -61,7 +61,7 @@ export default function Home() {
         </div>
         <Link
           to={'/search'}
-          className='header-link'
+          className='header-link animate-bounce'
         >
           Let's get started...
         </Link>
@@ -70,8 +70,8 @@ export default function Home() {
       {/* listing results for offer, sale and rent */}
       <div className='max-w-6xl mx-auto p-3 flex flex-col gap-8 my-10'>
         {offerListings && offerListings.length > 0 && (
-          <div className=''>
-            <div className='my-3 flex justify-between'>
+          <div className='animate-slideIn'>
+            <div className='my-3 flex justify-between items-center'>
               <h2 className='text-2xl font-semibold text-slate-600'>Recent offers</h2>
               <Link className='text-sm text-blue-800 hover:underline' to={'/search?offer=true'}>Show more offers</Link>
             </div>
@@ -83,8 +83,8 @@ export default function Home() {
           </div>
         )}
         {rentListings && rentListings.length > 0 && (
-          <div className=''>
-            <div className='my-3 flex justify-between'>
+          <div className='animate-slideIn'>
+            <div className='my-3 flex justify-between items-center'>
               <h2 className='text-2xl font-semibold text-slate-600'>Recent places for rent</h2>
               <Link className='text-sm text-blue-800 hover:underline' to={'/search?type=rent'}>Show more places for rent</Link>
             </div>
@@ -96,7 +96,7 @@ export default function Home() {
           </div>
         )}
         {saleListings && saleListings.length > 0 && (
-          <div className=''>
+          <div className='animate-slideIn'>
             <div className='my-1 flex justify-center'>
               <h2 className='text-4xl font-semibold text-slate-900'>Hot New Listings</h2>
             </div>
@@ -107,7 +107,7 @@ export default function Home() {
             </div>
           </div>
         )}
-        <Link className='text-md text-slate-800 hover:underline text-center sm:mr-28' to={'/search?type=sale'}>Show more places for sale</Link>
+        <Link className='text-md text-slate-800 hover:underline text-center sm:mr-28 animate-bounce' to={'/search?type=sale'}>Show more places for sale</Link>
       </div>
     </div>
   );
