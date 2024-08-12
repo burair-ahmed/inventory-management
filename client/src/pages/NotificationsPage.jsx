@@ -23,15 +23,6 @@ const NotificationsPage = () => {
     navigate(`/clients/edit/${clientId}`);
   };
 
-  const handleMarkAsSeen = async (clientId) => {
-    try {
-      await axios.patch(`/api/notifications/${clientId}`, { notified: true });
-      setNotifications(notifications.filter(notification => notification._id !== clientId));
-    } catch (error) {
-      console.error("Error marking notification as seen:", error);
-    }
-  };
-
   return (
     <div className="notifications-container">
       <h1 className="notifications-title">Client Notifications</h1>
