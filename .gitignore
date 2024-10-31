@@ -7,10 +7,24 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Node modules and build outputs
 node_modules
 dist
 dist-ssr
-*.local
+build
+public/build
+
+# Temporary files
+*.tmp
+*.temp
+
+# Environment variable files
+.env
+.env.local
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # Editor directories and files
 .vscode/*
@@ -22,4 +36,40 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-.env
+*.iml
+
+# OS-specific files
+Thumbs.db
+ehthumbs.db
+
+# Optional npm caches
+.npm
+.nvm
+
+# Optional yarn and pnpm files
+.pnp.cjs
+.pnp.js
+.yarn-integrity
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+
+# MongoDB files
+*.ldb
+dump/
+
+# Firebase/Google Service Account files
+firebase-debug.log
+serviceAccountKey.json
+
+# Jest and Cypress files
+coverage
+.cypress_cache/
+
+# Webpack/Babel cache
+.cache/
+.cache-loader/
+babel.config.js.*
