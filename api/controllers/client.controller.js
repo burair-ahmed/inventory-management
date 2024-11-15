@@ -118,3 +118,17 @@ export const searchClientsByName = async (req, res, next) => {
     next(error);
   }
 };
+
+const updateClients = async () => {
+  try {
+    await Client.updateMany(
+      { createdByAdmin: { $exists: false } }, // Find documents missing the field
+      { $set: { createdByAdmin: "Default Admin" } } // Replace "Default Admin" with an appropriate value
+    );
+    console.log("Updated all clients successfully!");
+  } catch (error) {
+    console.error("Error updating clients:", error);
+  }
+};
+
+updateClients();
